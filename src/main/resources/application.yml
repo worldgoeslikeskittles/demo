@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: demo
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: root
+    username: root
+    url: jdbc:postgresql://localhost:5432/demo
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+
+  context:
+    initializer:
+      classes=com:
+        example:
+          BeansInitializer
+
+
+connections:
+  rabbit:
+    topic:
+      application-from-mank-topic-name: sjvzjgsjgjsgjsjg
+      time: 19
+      limit: 20
