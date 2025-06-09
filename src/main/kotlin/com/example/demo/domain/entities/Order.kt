@@ -2,9 +2,6 @@ package com.example.demo.domain.entities
 
 import jakarta.persistence.*
 import org.hibernate.proxy.HibernateProxy
-import org.springframework.data.annotation.CreatedDate
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 @Entity
 @Table(name = "order_")
@@ -34,9 +31,6 @@ class Order {
 
     @Column(name = "order_number", nullable = false)
     var orderNumber: String? = null
-
-    @Column(name = "created_at", nullable = false)
-    var createdAt: LocalDateTime? = null
 
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true
