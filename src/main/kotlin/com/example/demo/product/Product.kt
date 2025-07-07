@@ -1,6 +1,8 @@
 package com.example.demo.product
 
 import jakarta.persistence.*
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import java.math.BigDecimal
 
 @Entity
@@ -15,8 +17,7 @@ open class Product {
     @Column(name = "name", nullable = false)
     var name: String? = null
 
-    @Lob
-    @Column(name = "description")
+    @Column(name = "description", length = 4000)
     var description: String? = null
 
     @Enumerated(EnumType.STRING)

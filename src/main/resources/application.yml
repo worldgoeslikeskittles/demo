@@ -2,7 +2,7 @@ spring:
   application:
     name: demo
   jpa:
-    open-in-view: true
+    open-in-view: false
     hibernate:
       ddl-auto: validate
     properties:
@@ -23,6 +23,10 @@ spring:
       classes=com:
         example:
           BeansInitializer
+  sql:
+    init:
+      data-locations: data/local-test-data.sql
+## вставить мой скуэль
 
 
 connections:
