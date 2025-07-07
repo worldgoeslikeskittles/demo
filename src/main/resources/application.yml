@@ -25,10 +25,8 @@ spring:
           BeansInitializer
   sql:
     init:
-      data-locations: data/local-test-data.sql
-## вставить мой скуэль
-
-
+      data-locations: classpath:data/local-test-data.sql
+      mode: ALWAYS
 connections:
   rabbit:
     topic:

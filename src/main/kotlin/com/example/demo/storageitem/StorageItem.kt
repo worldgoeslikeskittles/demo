@@ -22,6 +22,9 @@ class StorageItem {
     @JoinColumn(name = "product_id", nullable = false)
     var product: Product? = null
 
+    @Column(name = "count", nullable = false)
+    var count: Long? = null
+
     @Enumerated(EnumType.STRING)
     @Column(name = "storage_item_discount")
     var storageItemDiscount: StorageItemDiscount? = null

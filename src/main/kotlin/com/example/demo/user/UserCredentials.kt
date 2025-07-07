@@ -4,20 +4,20 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "user_credentials")
-open class UserCredentials {
+class UserCredentials {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_credentials_seq")
     @SequenceGenerator(name = "user_credentials_seq")
     @Column(name = "id", nullable = false)
-    open var id: Long? = null
+    var id: Long? = null
 
     @OneToOne(fetch = FetchType.LAZY, optional = true, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    open var user: User? = null
+    lateinit var user: User
 
     @Column(name = "login", nullable = false)
-    open var login: String? = null
+    lateinit var login: String
 
     @Column(name = "password", nullable = false)
-    open var password: String? = null
+    lateinit var password: String
 }
