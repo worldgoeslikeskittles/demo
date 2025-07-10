@@ -8,16 +8,16 @@ import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "user_")
-open class User:UserDetails {
+ class User:UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq")
     @Column(name = "id", nullable = false)
-    open var id: Long? = null
+    var id: Long? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    open var department: Department? = null
+    var department: Department? = null
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var userRoles: MutableSet<UserRole> = mutableSetOf()
@@ -26,7 +26,7 @@ open class User:UserDetails {
     lateinit var userCredentials: UserCredentials
 
     @Column(name = "name")
-    open var name: String? = null
+     var name: String? = null
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return userRoles.map { SimpleGrantedAuthority(it.role!!.name) }.toMutableList()
     }

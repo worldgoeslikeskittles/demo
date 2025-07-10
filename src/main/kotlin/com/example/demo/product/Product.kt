@@ -7,7 +7,7 @@ import java.math.BigDecimal
 
 @Entity
 @Table(name = "product")
-open class Product {
+ class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
     @SequenceGenerator(name = "product_seq")
