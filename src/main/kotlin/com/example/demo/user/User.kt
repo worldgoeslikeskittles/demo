@@ -2,20 +2,20 @@ package com.example.demo.user
 
 import com.example.demo.department.Department
 import jakarta.persistence.*
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "user_")
- class User:UserDetails {
+ class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq")
     @Column(name = "id", nullable = false)
     var id: Long? = null
 
-    @ManyToOne(fetch = FetchType.LAZY)
+   @Column(name = "name", nullable = false)
+   var name: String? = null
+
+   @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     var department: Department? = null
 
@@ -24,18 +24,4 @@ import org.springframework.security.core.userdetails.UserDetails
 
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], optional = true, orphanRemoval = true)
     lateinit var userCredentials: UserCredentials
-
-    @Column(name = "name")
-     var name: String? = null
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return userRoles.map { SimpleGrantedAuthority(it.role!!.name) }.toMutableList()
-    }
-
-    override fun getPassword(): String {
-        return userCredentials.password
-    }
-
-    override fun getUsername(): String {
-       return userCredentials.login
-    }
 }

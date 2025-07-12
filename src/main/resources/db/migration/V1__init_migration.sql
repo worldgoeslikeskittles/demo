@@ -93,8 +93,8 @@ CREATE TABLE storage_item (
 
 CREATE TABLE user_ (
   id BIGINT NOT NULL,
+   name VARCHAR(255) NOT NULL,
    department_id BIGINT,
-   name VARCHAR(255),
    CONSTRAINT pk_user_ PRIMARY KEY (id)
 );
 
