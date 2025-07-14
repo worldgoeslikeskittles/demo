@@ -34,7 +34,6 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:postgresql")
-	testImplementation("org.mockito.kotlin:mockito-kotlin")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     kapt("org.mapstruct:mapstruct-processor:1.6.0")
     compileOnly("org.mapstruct:mapstruct:1.6.0")
