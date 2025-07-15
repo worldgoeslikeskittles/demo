@@ -6,15 +6,21 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "user_")
- class User(
+ class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq")
+    @Column(name = "id", nullable = false)
+    var id: Long? = null
+
     @Column(name = "name", nullable = false)
-    var name: String,
+    lateinit var name: String
 
     @Column(name = "login", nullable = false)
-    var login: String,
+    lateinit var login: String
 
     @Column(name = "password", nullable = false)
-    var password: String,
+    lateinit var password: String
 
     @ManyToMany
     @JoinTable(
@@ -23,10 +29,4 @@ import jakarta.persistence.*
         inverseJoinColumns = [JoinColumn(name = "roles_id")]
     )
     var roles: MutableSet<Role> = mutableSetOf(Role(RoleType.CUSTOMER))
-) {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq")
-    @Column(name = "id", nullable = false)
-    var id: Long? = null
 }
