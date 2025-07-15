@@ -9,7 +9,6 @@ import org.hibernate.proxy.HibernateProxy
 import org.springframework.data.annotation.CreatedDate
 import java.time.LocalDateTime
 
-@EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener::class)
 @Entity
 @Table(name = "order_")
 class Order{
