@@ -39,10 +39,6 @@ class Order{
     @Column(name = "order_number", nullable = true)
     var orderNumber: String? = null
 
-    @CreatedDate
-    @Column(name = "created_date")
-    var createdDate: LocalDateTime? = null
-
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
