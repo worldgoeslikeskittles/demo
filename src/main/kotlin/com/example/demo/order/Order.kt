@@ -6,23 +6,26 @@ import com.example.demo.shipment.Shipment
 import com.example.demo.user.User
 import jakarta.persistence.*
 import org.hibernate.proxy.HibernateProxy
+import org.springframework.data.annotation.CreatedDate
+import java.time.LocalDateTime
 
+@EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener::class)
 @Entity
 @Table(name = "order_")
-class Order(
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    var customer: User,
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", nullable = false)
-    val orderStatus: OrderStatus = OrderStatus.DRAFT
-) {
+class Order{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
     @SequenceGenerator(name = "order_seq")
     @Column(name = "id", nullable = false)
     var id: Long? = null
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    lateinit var customer: User
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
+    var orderStatus: OrderStatus = OrderStatus.DRAFT
 
     @OneToMany(mappedBy = "order", orphanRemoval = true)
     var orderItems: MutableSet<OrderItem> = mutableSetOf()
@@ -35,6 +38,10 @@ class Order(
 
     @Column(name = "order_number", nullable = true)
     var orderNumber: String? = null
+
+    @CreatedDate
+    @Column(name = "created_date")
+    var createdDate: LocalDateTime? = null
 
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true
