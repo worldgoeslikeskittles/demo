@@ -29,14 +29,15 @@ class Order{
     @OneToMany(mappedBy = "order", orphanRemoval = true)
     var orderItems: MutableSet<OrderItem> = mutableSetOf()
 
-    @OneToOne(orphanRemoval = true, mappedBy = "order")
+    @OneToOne(mappedBy = "order", orphanRemoval = true)
     var payment: Payment? = null
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "order")
+    @OneToOne(mappedBy = "order", orphanRemoval = true)
     var shipment: Shipment? = null
 
     @Column(name = "order_number", nullable = true)
     var orderNumber: String? = null
+
 
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true

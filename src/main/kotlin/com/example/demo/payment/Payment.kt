@@ -6,21 +6,21 @@ import java.math.BigDecimal
 
 @Entity
 @Table(name = "payment")
-class Payment(
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "order_id")
-    var order: Order
-) {
+class Payment{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_seq")
     @SequenceGenerator(name = "payment_seq")
     @Column(name = "id", nullable = false)
-     var id: Long? = null
+    var id: Long? = null
 
     @Column(name = "cost", nullable = false, precision = 19, scale = 2)
-     var cost: BigDecimal? = null
+    var cost: BigDecimal? = null
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", nullable = false)
-     var paymentStatus: PaymentStatus? = PaymentStatus.NOT_PAED
+    var paymentStatus: PaymentStatus? = PaymentStatus.NOT_PAED
+
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    lateinit var order: Order
 }
