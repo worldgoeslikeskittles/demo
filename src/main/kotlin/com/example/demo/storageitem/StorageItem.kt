@@ -7,23 +7,23 @@ import org.hibernate.proxy.HibernateProxy
 
 @Entity
 @Table(name = "storage_item")
-class StorageItem {
+class StorageItem(
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
+    var product: Product,
+
+    @Column(name = "count", nullable = false)
+    var count: Long,
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "storage_id", nullable = false)
+    var storage: Storage
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "storage_item_seq")
     @SequenceGenerator(name = "storage_item_seq")
     @Column(name = "id", nullable = false)
     var id: Long? = null
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "storage_id", nullable = false)
-    var storage: Storage? = null
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    var product: Product? = null
-
-    @Column(name = "count", nullable = false)
-    var count: Long? = null
 
     @Enumerated(EnumType.STRING)
     @Column(name = "storage_item_discount")

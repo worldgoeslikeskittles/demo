@@ -1,24 +1,28 @@
 package com.example.demo.order
 
-import com.example.demo.customer.Customer
 import com.example.demo.orderitem.OrderItem
 import com.example.demo.payment.Payment
 import com.example.demo.shipment.Shipment
+import com.example.demo.user.User
 import jakarta.persistence.*
 import org.hibernate.proxy.HibernateProxy
 
 @Entity
 @Table(name = "order_")
-class Order {
+class Order(
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    var customer: User,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
+    val orderStatus: OrderStatus = OrderStatus.DRAFT
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
     @SequenceGenerator(name = "order_seq")
     @Column(name = "id", nullable = false)
     var id: Long? = null
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    var customer: Customer? = null
 
     @OneToMany(mappedBy = "order", orphanRemoval = true)
     var orderItems: MutableSet<OrderItem> = mutableSetOf()
@@ -26,14 +30,10 @@ class Order {
     @OneToOne(orphanRemoval = true, mappedBy = "order")
     var payment: Payment? = null
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "order" )
+    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "order")
     var shipment: Shipment? = null
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", nullable = false)
-    var orderStatus: OrderStatus? = null
-
-    @Column(name = "order_number", nullable = false)
+    @Column(name = "order_number", nullable = true)
     var orderNumber: String? = null
 
     final override fun equals(other: Any?): Boolean {

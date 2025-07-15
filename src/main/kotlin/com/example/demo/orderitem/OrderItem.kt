@@ -7,23 +7,23 @@ import org.hibernate.proxy.HibernateProxy
 
 @Entity
 @Table(name = "order_item")
-class OrderItem {
+class OrderItem(
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
+    var product: Product,
+
+    @Column(name = "count", nullable = false)
+    var count: Long,
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    var order: Order
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_item_seq")
     @SequenceGenerator(name = "order_item_seq")
     @Column(name = "id", nullable = false)
     var id: Long? = null
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
-    var order: Order? = null
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    var product: Product? = null
-
-    @Column(name = "count", nullable = false)
-    var count: Long? = null
 
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true

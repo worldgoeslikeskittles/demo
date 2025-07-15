@@ -6,7 +6,11 @@ import java.math.BigDecimal
 
 @Entity
 @Table(name = "payment")
-class Payment {
+class Payment(
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "order_id")
+    var order: Order
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_seq")
     @SequenceGenerator(name = "payment_seq")
@@ -18,9 +22,5 @@ class Payment {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", nullable = false)
-     var paymentStatus: PaymentStatus? = null
-
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "order_id")
-     var order: Order? = null
+     var paymentStatus: PaymentStatus? = PaymentStatus.NOT_PAED
 }
